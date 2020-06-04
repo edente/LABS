@@ -1,5 +1,6 @@
 package edu.mum.cs.cs425.studentmgmt.service.impl;
 
+
 import java.util.List;
 import java.util.Optional;
 
@@ -16,7 +17,7 @@ import edu.mum.cs.cs425.studentmgmt.repository.StudentRepository;
 import edu.mum.cs.cs425.studentmgmt.service.StudentService;
 
 @Service
-@Transactional
+
 public class StudentServiceImpl implements StudentService {
 
 	private StudentRepository studentRepository;
@@ -55,10 +56,22 @@ public class StudentServiceImpl implements StudentService {
 		studentRepository.deleteById(studentId);
 	}
 
+	
+	
+	
 	@Override
-	public Optional<Student> findByStudentNumber(String studentNuamber) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	 public List<Student> searchStudents(String searchString) {
+		List<Student> firstname=studentRepository.findStudentsByfirstNameContains(searchString);
+		List<Student> studentnumber=studentRepository.findStudentsBystudentNumberContains(searchString);
+		List<Student> lastname=studentRepository.findStudentsBylastNameContains(searchString);
+		if(firstname.size()!=0)
+			return firstname;
+		if(lastname.size()!=0)
+			return lastname;
+		return studentnumber;
+		
+		}
 }
+	       
+
+

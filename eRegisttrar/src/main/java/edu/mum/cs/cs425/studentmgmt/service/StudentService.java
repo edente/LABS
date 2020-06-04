@@ -13,8 +13,7 @@ public interface StudentService {
 	 public  Page<Student> getAllStudentsPaged(int pageNo);
 	 public  Student saveStudent(Student student);
 	 public  Student getStudentById(Long studentId);
-	// public  void deleteStudentById(Integer studentId);
 	void deleteStudentById(Long studentId);
-	Optional<Student> findByStudentNumber(String studentNuamber);
+	 public List<Student> searchStudents(String searchString);
 
 }

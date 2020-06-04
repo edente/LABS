@@ -1,5 +1,7 @@
 package edu.mum.cs.cs425.studentmgmt.control;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,5 +88,18 @@ public class StudentController {
     public String deleteBook(@PathVariable Long studentId, Model model) {
         studentService.deleteStudentById(studentId);
         return "redirect:/eregistrar/student/list";
+    }
+    
+    
+    
+    @GetMapping(value = {"/eregistrar/student/search", "/student/search"})
+    public ModelAndView searchBooks(@RequestParam String searchString) {
+        ModelAndView modelAndView = new ModelAndView();
+        List<Student> students = studentService.searchStudents(searchString);
+        modelAndView.addObject("students", students);
+        modelAndView.addObject("searchString", searchString);
+        modelAndView.addObject("studentsCount", students.size());
+        modelAndView.setViewName("student/list");
+        return modelAndView;
     }
 }
